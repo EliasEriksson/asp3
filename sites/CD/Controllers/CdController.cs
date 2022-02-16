@@ -43,6 +43,11 @@ namespace CD.Controllers
                 return NotFound();
             }
 
+            if (cd.Lending == null)
+            {
+                ViewData["Users"] = new SelectList(_context.Users, "Id", "Name");
+            }
+
             return View(cd);
         }
 
@@ -144,6 +149,38 @@ namespace CD.Controllers
             }
 
             return View(cd);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Lend(int? cdId, int? userId)
+        {
+            Console.WriteLine("LENDING PAGE");
+            Console.WriteLine(cdId);
+            Console.WriteLine(userId);
+            if (cdId == null || userId == null)
+            {
+                return NotFound();
+            }
+            
+            var cd = await this._context.Cds.FindAsync(cdId);
+            var user = await this._context.Users.FindAsync(userId);
+            if (cd == null)
+            {
+                return NotFound();
+            }
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            Console.WriteLine("GOT DOWN HERE");
+            Console.WriteLine(cdId.Value);
+            Console.WriteLine(userId.Value);
+            var lendings = new Lending(cdId.Value, userId.Value);
+            this._context.Add(lendings);
+            await this._context.SaveChangesAsync();
+            return this.View("Details");
         }
 
         // POST: Cd/Delete/5

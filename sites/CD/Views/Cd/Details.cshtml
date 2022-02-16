@@ -1,3 +1,4 @@
+@using CD.Models
 @model CD.Models.Cd
 
 @{
@@ -26,9 +27,24 @@
             @Html.DisplayNameFor(model => model.Artist)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Artist.Id)
+            @Html.DisplayFor(model => model.Artist!.Name)
         </dd>
     </dl>
+    @if (Model.Lending == null)
+    {
+        <p>CD is Currently Availeble</p>
+        <form asp-action="Lend">
+            <input type="hidden" name="cdId" value="@(Model.Id)">
+            <div class="form-group">
+                <select name="userId" asp-items="ViewBag.Users"></select>
+            </div>
+            <input type="submit" value="lend"/>
+        </form>
+    }
+    else
+    {
+        <p>CD is currently Lent to @(Model.Lending.User?.Name)</p>
+    }
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

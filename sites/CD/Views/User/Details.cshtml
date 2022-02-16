@@ -17,6 +17,17 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
+    @if (Model.Lendings == null || Model.Lendings.Count == 0)
+    {
+        <p>No CDs are borrowed</p>
+    }
+    else
+    {
+        foreach (var lending in Model.Lendings) 
+        {
+            <p>@(lending.Cd?.Title)</p>
+        }
+    }
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

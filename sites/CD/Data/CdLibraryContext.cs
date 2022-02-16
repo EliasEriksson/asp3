@@ -61,5 +61,6 @@ namespace CD.Data
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Cd> Cds { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Lending> Lendings { get; set; }
     }
 }

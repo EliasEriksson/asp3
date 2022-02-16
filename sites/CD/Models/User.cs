@@ -6,6 +6,6 @@ namespace CD.Models
         
         public string? Name { get; set; }
         
-        public List<Lending>? Lends { get; set; }
+        public List<Lending>? Lendings { get; set; }
     }
 }

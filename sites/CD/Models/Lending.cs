@@ -9,6 +9,12 @@ namespace CD.Models
         
         public int CdId { get; set; }
         public Cd? Cd { get; set; }
+
+        public Lending(int cdId, int userId)
+        {
+            this.CdId = cdId;
+            this.UserId = userId;
+        }
     }
 }
 
