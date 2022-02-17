@@ -1,4 +1,5 @@
 using CD.Data;
+using Microsoft.AspNetCore.Mvc;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -9,24 +10,30 @@ builder.Services.AddDbContext<CdLibraryContext>();
 
 var app = builder.Build();
 
-const string rootUrl = "/aspdotnet/moment32";
+const string rootUrl = "/aspdotnet/moment3.2";
 
 app.UseRouting();
 app.UseStaticFiles(rootUrl);
 
+app.MapGet("/", (context) =>
+{
+    context.Response.Redirect(rootUrl);
+    return Task.FromResult(0);
+});
+
 app.MapControllerRoute(
     "cd",
-    "{controller=Cd}/{action=Index}/{id?}"
+    $"{rootUrl}/{{controller=Cd}}/{{action=Index}}/{{id?}}"
 );
 
 app.MapControllerRoute(
     "artist",
-    "{controller=Artist}/{action=Index}/{id?}"
+    $"{rootUrl}/{{controller=Artist}}/{{action=Index}}/{{id?}}"
 );
 
 app.MapControllerRoute(
     "user",
-    "{controller=User}/{action=Index}/{id?}"
+    $"{rootUrl}/{{controller=User}}/{{action=Index}}/{{id?}}"
 );
 
 
