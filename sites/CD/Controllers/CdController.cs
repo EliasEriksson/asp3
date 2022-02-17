@@ -1,8 +1,4 @@
 #nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +17,21 @@ namespace CD.Controllers
         }
 
         // GET: Cd
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string titleSearch)
         {
-            var cdLibraryContext = _context.Cds.Include(c => c.Artist);
-            return View(await cdLibraryContext.ToListAsync());
+            var cdLibraryContext = _context.Cds
+                .Include(c => c.Artist)
+                .Include(c => c.Lending);
+            if (titleSearch != null)
+            {
+                var result = await cdLibraryContext.Where(cd => cd.Title.ToLower().Contains(titleSearch.ToLower())).ToListAsync();
+                return View(result);
+            }
+            else
+            {
+                var result = await cdLibraryContext.ToListAsync();
+                return View(result);
+            }
         }
 
         // GET: Cd/Details/5
@@ -37,6 +44,7 @@ namespace CD.Controllers
 
             var cd = await _context.Cds
                 .Include(c => c.Artist)
+                .Include(c => c.Lending.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (cd == null)
             {
@@ -72,7 +80,7 @@ namespace CD.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", cd.ArtistId);
+            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Name", cd.ArtistId);
             return View(cd);
         }
 
@@ -90,7 +98,7 @@ namespace CD.Controllers
                 return NotFound();
             }
 
-            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", cd.ArtistId);
+            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Name", cd.ArtistId);
             return View(cd);
         }
 
@@ -128,7 +136,7 @@ namespace CD.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Id", cd.ArtistId);
+            ViewData["ArtistId"] = new SelectList(_context.Artists, "Id", "Name", cd.ArtistId);
             return View(cd);
         }
 
@@ -154,9 +162,6 @@ namespace CD.Controllers
         [HttpPost]
         public async Task<IActionResult> Lend(int? cdId, int? userId)
         {
-            Console.WriteLine("LENDING PAGE");
-            Console.WriteLine(cdId);
-            Console.WriteLine(userId);
             if (cdId == null || userId == null)
             {
                 return NotFound();
@@ -173,14 +178,12 @@ namespace CD.Controllers
             {
                 return NotFound();
             }
-
-            Console.WriteLine("GOT DOWN HERE");
-            Console.WriteLine(cdId.Value);
-            Console.WriteLine(userId.Value);
+            
             var lendings = new Lending(cdId.Value, userId.Value);
             this._context.Add(lendings);
             await this._context.SaveChangesAsync();
-            return this.View("Details");
+            
+            return RedirectToAction("Details", new { id = cdId });
         }
 
         // POST: Cd/Delete/5

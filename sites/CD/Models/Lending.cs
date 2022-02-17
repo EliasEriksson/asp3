@@ -1,8 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CD.Models
 {
     public class Lending
     {
         public int Id { get; set; }
+        
+        [Display(Name = "Borrowed")]
+        public DateTime TimeStamp { get; set; } = DateTime.Now;
         
         public int UserId { get; set; }
         public User? User { get; set; }

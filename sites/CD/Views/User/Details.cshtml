@@ -1,3 +1,5 @@
+@using CD.Models
+@using Microsoft.VisualBasic
 @model CD.Models.User
 
 @{
@@ -8,12 +10,12 @@
 
 <div>
     <h4>User</h4>
-    <hr />
+    <hr/>
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
@@ -23,10 +25,25 @@
     }
     else
     {
-        foreach (var lending in Model.Lendings) 
-        {
-            <p>@(lending.Cd?.Title)</p>
-        }
+        <table>
+            <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Lendings[0].Cd.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Lendings[0].TimeStamp)</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var lending in Model.Lendings)
+            {
+                <tr>
+                    <td>@(lending.Cd?.Title)</td>
+                    <td>@(lending.TimeStamp.ToString("yyyy-MM-dd HH:mm:dd"))</td>
+                    <td><a asp-controller="User" asp-action="Return" asp-route-id="@(lending.CdId)">Return</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
     }
 </div>
 <div>

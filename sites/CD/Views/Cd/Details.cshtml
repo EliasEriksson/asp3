@@ -38,12 +38,14 @@
             <div class="form-group">
                 <select name="userId" asp-items="ViewBag.Users"></select>
             </div>
-            <input type="submit" value="lend"/>
+            <div class="form-group">
+                <input type="submit" value="lend"/>
+            </div>
         </form>
     }
     else
     {
-        <p>CD is currently Lent to @(Model.Lending.User?.Name)</p>
+        <p>CD is currently Lent to @(Model.Lending.User?.Name) since @(@Model.Lending.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss"))</p>
     }
 </div>
 <div>

@@ -9,7 +9,6 @@ namespace CD.Data
     {
         public CdLibraryContext(DbContextOptions<CdLibraryContext> options) : base(options)
         {
-            
         }
         
         private class MissingCredentials : Exception

@@ -1,5 +1,7 @@
 using CD.Data;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
@@ -13,13 +15,13 @@ app.UseRouting();
 app.UseStaticFiles(rootUrl);
 
 app.MapControllerRoute(
-    "artist",
-    "{controller=Artist}/{action=Index}/{id?}"
+    "cd",
+    "{controller=Cd}/{action=Index}/{id?}"
 );
 
 app.MapControllerRoute(
-    "cd",
-    "{controller=Cd}/{action=Index}/{id?}"
+    "artist",
+    "{controller=Artist}/{action=Index}/{id?}"
 );
 
 app.MapControllerRoute(

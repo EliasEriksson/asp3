@@ -35,6 +35,8 @@ namespace CD.Controllers
             }
 
             var user = await _context.Users
+                .Include(m => m.Lendings)
+                .ThenInclude(l => l.Cd)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -116,7 +118,29 @@ namespace CD.Controllers
             }
             return View(user);
         }
+        
+        public async Task<IActionResult> Return(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var lending = await this._context.Lendings
+                .Where(l => l.CdId == id)
+                .FirstOrDefaultAsync();
+
+            if (lending == null)
+            {
+                return NotFound();
+            }
+
+            this._context.Remove(lending);
+            await this._context.SaveChangesAsync();
+            
+            return RedirectToAction("Details", new { id = lending.UserId});
+        }
+        
         // GET: User/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
