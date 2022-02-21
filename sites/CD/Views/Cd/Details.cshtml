@@ -47,7 +47,12 @@
     }
     else
     {
-        <p>CD is lent to @(Model.Lending.User?.Name) since @(@Model.Lending.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+        <p>
+            CD is lent to 
+            <a asp-controller="User" asp-action="Details" asp-route-id="@(Model.Lending.UserId)"
+               >@(Model.Lending.User?.Name)</a>
+            since @(@Model.Lending.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss"))
+        </p>
     }
 </div>
 <div class="navigation">
