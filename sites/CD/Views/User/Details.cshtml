@@ -9,7 +9,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>User</h4>
+    <h2>User</h2>
     <hr/>
     <dl class="row">
         <dt class="col-sm-2">
@@ -19,9 +19,11 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
+    <h3>Borrowed Cds</h3>
+    <hr/>
     @if (Model.Lendings == null || Model.Lendings.Count == 0)
     {
-        <p>No CDs are borrowed</p>
+        <p class="top-margin">No CDs are borrowed</p>
     }
     else
     {
@@ -37,16 +39,24 @@
             @foreach (var lending in Model.Lendings)
             {
                 <tr>
-                    <td>@(lending.Cd?.Title)</td>
-                    <td>@(lending.TimeStamp.ToString("yyyy-MM-dd HH:mm:dd"))</td>
-                    <td><a asp-controller="User" asp-action="Return" asp-route-id="@(lending.CdId)">Return</a></td>
+                    <td data-label="@(Html.DisplayNameFor(item => item.Lendings[0].Cd.Title))">
+                        @(lending.Cd?.Title)
+                    </td>
+                    <td data-label="@(Html.DisplayNameFor(item => item.Lendings[0].TimeStamp))">
+                        @(lending.TimeStamp.ToString("yyyy-MM-dd HH:mm:dd"))
+                    </td>
+                    <td>
+                        <div class="navigation">
+                            <a asp-controller="User" asp-action="Return" asp-route-id="@(lending.CdId)">Return</a>
+                        </div>
+                    </td>
                 </tr>
             }
             </tbody>
         </table>
     }
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+<div class="navigation">
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
     <a asp-action="Index">Back to List</a>
 </div>

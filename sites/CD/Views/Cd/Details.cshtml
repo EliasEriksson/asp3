@@ -8,28 +8,30 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Cd</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <h2>Cd</h2>
+    <hr/>
+    <dl class="">
+        <dt class="">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="">
             @Html.DisplayFor(model => model.Category)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="">
             @Html.DisplayNameFor(model => model.Artist)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="">
             @Html.DisplayFor(model => model.Artist!.Name)
         </dd>
     </dl>
+</div>
+<div>
     @if (Model.Lending == null)
     {
         <p>CD is Currently Availeble</p>
@@ -45,10 +47,10 @@
     }
     else
     {
-        <p>CD is currently Lent to @(Model.Lending.User?.Name) since @(@Model.Lending.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+        <p>CD is lent to @(Model.Lending.User?.Name) since @(@Model.Lending.TimeStamp.ToString("yyyy-MM-dd HH:mm:ss"))</p>
     }
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+<div class="navigation">
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
     <a asp-action="Index">Back to List</a>
 </div>

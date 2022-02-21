@@ -10,60 +10,73 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<form asp-controller="Cd" asp-action="Index">
-    <label>
-        Title:
+<form class="search-form" asp-controller="Cd" asp-action="Index">
+    <div class="form-group">
+        <label>
+            Title
+        </label>
         <input type="text" name="titleSearch">
-    </label>
+    </div>
+
     <input type="submit" value="search"/>
 </form>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Artist)
-        </th>
-        <th>
-            Borrowed
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
+<div>
+    <h2>CDs</h2>
+    <hr/>
+    <table class="table">
+        <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Artist!.Name)
-            </td>
-            @if (item.Lending != null)
-            {
-                <td>Yes</td>
-            }
-            else
-            {
-                <td>No</td>
-            }
-
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artist)
+            </th>
+            <th>
+                Borrowed
+            </th>
+            <th></th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td data-label="@(Html.DisplayNameFor(model => model.Title)):">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td data-label="@(Html.DisplayNameFor(model => model.Category)):">
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td data-label="@(Html.DisplayNameFor(model => model.Artist!.Name)):">
+                    @Html.DisplayFor(modelItem => item.Artist!.Name)
+                </td>
+                @if (item.Lending != null)
+                {
+                    <td data-label="Borrowed:">
+                        Yes
+                    </td>
+                }
+                else
+                {
+                    <td data-label="Borrowed:">
+                        No
+                    </td>
+                }
+
+                <td>
+                    <div class="navigation">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

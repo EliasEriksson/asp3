@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    line-height: 1.5em;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+a {
+    display: flex;
+    width: fit-content;
+}
+
+.wrapper {
+    width: 100%;
+}
+
+.top-margin {
+    margin-top: 1em;
+}
+
+.content-width {
+    max-width: 1140px;
+    margin: auto;
+}
+
+.navigation {
+    display: flex;
+    gap: 1ch;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.header-wrapper ul {
+    padding: 0;
+    list-style-type: none;
+    list-style-position: inside;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+    
+}
+
+.header-wrapper li {
+    display: flex;
+    justify-content: center;
+    
+    /*min-width: 150px;*/
+    padding: 1em;
+}
+
+
+.wrapper {
+    width: 100%;
+}
+
+.fullscreen {
+    min-height: 100vh;
+    padding: 1em;
+}
+
+
+.footer-wrapper {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 2em;
+}
+
+dt {
+    font-weight: bold;
+}
+
+th {
+    text-align: left;
+}
+
+dl * {
+    margin: 1em;
+}
+
+table {
+    border-spacing: 1em;
+    width: 100%;
+}
+
+hr {
+    /*margin-bottom: 1em;*/
+}
+
+form {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    max-width: 500px;
+    width: 100%;
+}
+
+.search-form {
+    margin-top: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+form input[type=submit] {
+    max-width: 200px;
+    padding: 0.25em 1em;
+}
+
+form input, form select{
+    padding: 0.25em;
+}
+
+@media screen and (max-width: 1100px) {
+    thead tr {
+        position: absolute;
+        bottom: 100%;
+        pointer-events: none;
+    }
+    
+    tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+    
+    tbody tr {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    td:before {
+        content: attr(data-label);
+        font-weight: bold;
+    }
+}
