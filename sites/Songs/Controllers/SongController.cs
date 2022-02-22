@@ -11,7 +11,7 @@ using Songs.Models;
 
 namespace Songs.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("aspdotnet/moment3.3/api/[controller]")]
     [ApiController]
     public class SongController : ControllerBase
     {
