@@ -6,12 +6,15 @@ namespace CD.Models
     {
         public int Id { get; set; }
         
+        [Required]
         [Display(Name = "Borrowed")]
         public DateTime TimeStamp { get; set; } = DateTime.Now;
         
+        [Required]
         public int UserId { get; set; }
         public User? User { get; set; }
         
+        [Required]
         public int CdId { get; set; }
         public Cd? Cd { get; set; }
 
