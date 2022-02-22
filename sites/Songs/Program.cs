@@ -29,7 +29,7 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = $"{rootUrl}";
 });
 
-app.UsePathBase($"/{rootUrl}");
+app.UsePathBase(new PathString($"/{rootUrl}"));
 
 app.UseHttpsRedirection();
 
