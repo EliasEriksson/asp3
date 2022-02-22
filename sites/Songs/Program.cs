@@ -29,6 +29,8 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = $"{rootUrl}";
 });
 
+app.UsePathBase($"/{rootUrl}");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
