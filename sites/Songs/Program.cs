@@ -18,18 +18,15 @@ var app = builder.Build();
 
 app.UseSwagger(options =>
 {
-    // Console.WriteLine(options.RouteTemplate);
-    // options.RouteTemplate = $"/swagger/{{documentName}}/swagger.json";
-    // Console.WriteLine(options.RouteTemplate);
+    options.RouteTemplate = $"{rootUrl}/swagger/{{documentName}}/swagger.json";
 });
 
 app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint($"/swagger/v1/swagger.json", "swagger endpoint");
+    options.SwaggerEndpoint($"swagger/v1/swagger.json", "swagger endpoint");
     options.RoutePrefix = $"{rootUrl}";
 });
 
-app.UsePathBase(new PathString($"/{rootUrl}"));
 
 app.UseHttpsRedirection();
 
